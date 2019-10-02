@@ -9,6 +9,7 @@ import Footer from "./container/footer";
 
 import Login from "./components/Login";
 import SignUp from "./components/Signup";
+import Home from "./components/Home";
 
 class App extends React.Component {
   componentDidMount() {
@@ -19,6 +20,7 @@ class App extends React.Component {
       <div className="app">
         <BrowserRouter>
           <Header />
+          <Route path="/" component={Home} />
           <Route path="/login" component={Login} />
           <Route path="/register" component={SignUp} />
           <Footer />
