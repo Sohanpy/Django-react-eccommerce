@@ -2,7 +2,6 @@ import os
 import random
 from django.db import models
 from django.db.models.signals import pre_save
-
 from ecommerce.utils import unique_slug_generator
 
 
@@ -40,7 +39,6 @@ CATEGORY_CHOICES = (
     ('S', 'Sports'),
     ('K', 'Kids')
 )
-
 
 class Item(models.Model):
     name = models.CharField(max_length=70)

@@ -1,11 +1,69 @@
-import React, { Component } from "react";
-import { Link, Redirect, withRouter } from "react-router-dom";
+import React from "react";
 import { connect } from "react-redux";
+import { Redirect } from "react-router-dom";
+
+import Avatar from "@material-ui/core/Avatar";
+import Button from "@material-ui/core/Button";
+import CssBaseline from "@material-ui/core/CssBaseline";
+import TextField from "@material-ui/core/TextField";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import Checkbox from "@material-ui/core/Checkbox";
+import Link from "@material-ui/core/Link";
+import Grid from "@material-ui/core/Grid";
+import Box from "@material-ui/core/Box";
+import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
+import Typography from "@material-ui/core/Typography";
+import { withStyles } from "@material-ui/core/styles";
+import Container from "@material-ui/core/Container";
+import Paper from "@material-ui/core/Paper";
+import Divider from "@material-ui/core/Divider";
+
 import { authLogin } from "../store/actions/auth";
 
-import { Alert, Button, Container, Form } from "react-bootstrap";
+const Copyright = () => {
+  return (
+    <Typography variant="body2" color="textSecondary" align="center">
+      {"Copyright © "}
+      <Link color="inherit" href="https://material-ui.com/">
+        Your Website
+      </Link>{" "}
+      {new Date().getFullYear()}
+      {"."}
+    </Typography>
+  );
+};
 
-class Login extends Component {
+const styles = theme => ({
+  "@global": {
+    body: {
+      backgroundColor: theme.palette.common.white
+    }
+  },
+  root: {
+    ...theme.mixins.gutters(),
+    paddingTop: theme.spacing.unit * 2,
+    paddingBottom: theme.spacing.unit * 2
+  },
+  paper: {
+    marginTop: theme.spacing(8),
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center"
+  },
+  avatar: {
+    margin: theme.spacing(1),
+    backgroundColor: theme.palette.secondary.main
+  },
+  form: {
+    width: "100%", // Fix IE 11 issue.
+    marginTop: theme.spacing(1)
+  },
+  submit: {
+    margin: theme.spacing(3, 0, 2)
+  }
+});
+
+class Login extends React.Component {
   state = {
     username: "",
     password: ""
@@ -24,71 +82,88 @@ class Login extends Component {
 
   render() {
     const { username, password } = this.state;
-    const { token, loading, error } = this.props;
+    const { classes, token, error } = this.props;
+
     if (token) {
-      return <Redirect to="/" />;
+      return <Redirect />;
     }
+
     return (
-      <div className="color">
-        <Container>
-          <h1 className="text-center mt-2">Login</h1>
-          <hr />
-          {error && (
-            <Alert variant="danger">
-              <Alert.Heading>
-                Hey, please enter valid account informations
-              </Alert.Heading>
-            </Alert>
-          )}
-
-          <Form onSubmit={this.handleSubmit}>
-            <Form.Group className="mt-5" controlId="formBasicEmail">
-              <Form.Label>Email address</Form.Label>
-              <Form.Control
-                autoComplete="off"
-                onChange={this.handleChange}
-                name="username"
-                value={username}
-                type="name"
-                placeholder="Name"
-              />
-              <Form.Text className="text-muted"></Form.Text>
-            </Form.Group>
-
-            <Form.Group controlId="formBasicPassword">
-              <Form.Label>Password</Form.Label>
-              <Form.Control
-                onChange={this.handleChange}
-                autoComplete="off"
-                type="password"
-                name="password"
-                value={password}
-                placeholder="Password"
-              />
-            </Form.Group>
-            <Button
-              loading={loading}
-              disabled={loading}
-              variant="outline-success"
-              size="lg"
-              block
-              type="submit"
+      <div>
+        <Container component="main" maxWidth="xs">
+          <CssBaseline />
+          <div className={classes.paper}>
+            <Avatar className={classes.avatar}>
+              <LockOutlinedIcon />
+            </Avatar>
+            <Typography component="h1" variant="h5">
+              Sign in
+            </Typography>
+            {error && (
+              <Paper className={classes.root} elevation={1}>
+                <Typography variant="h5" component="h3">
+                  <h5 color="red">{this.props.error.message}</h5>
+                </Typography>
+              </Paper>
+            )}
+            <form
+              className={classes.form}
+              noValidate
+              onSubmit={this.handleSubmit}
             >
-              Login
-            </Button>
-          </Form>
-          <h4 className="mt-3">
-            Forget password?{" "}
-            <Link style={{ textDecoration: "none" }} to="#">
-              here
-            </Link>
-          </h4>
-          <h4 className="mt-2">
-            Don't Have an account ?{" "}
-            <Link style={{ textDecoration: "none" }} to="/register">
-              Register
-            </Link>
-          </h4>
+              <TextField
+                onChange={this.handleChange}
+                variant="outlined"
+                margin="normal"
+                required
+                fullWidth
+                id="email"
+                label="Email Address"
+                name="username"
+                autoComplete="email"
+                autoFocus
+                value={username}
+              />
+              <TextField
+                onChange={this.handleChange}
+                variant="outlined"
+                margin="normal"
+                required
+                fullWidth
+                name="password"
+                label="Password"
+                type="password"
+                id="password"
+                autoComplete="current-password"
+                value={password}
+              />
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                color="primary"
+                className={classes.submit}
+              >
+                Sign In
+              </Button>
+              <Divider />
+              <Grid container>
+                <Grid item xs>
+                  <Link href="#" variant="body2">
+                    Forgot password?
+                  </Link>
+                </Grid>
+                <Grid item>
+                  <Link href="/register" variant="body2">
+                    {"Don't have an account? Sign Up"}
+                  </Link>
+                </Grid>
+              </Grid>
+            </form>
+          </div>
+          <Box mt={8}>
+            <Copyright />
+          </Box>
         </Container>
       </div>
     );
@@ -112,4 +187,4 @@ const mapDispatchToProps = dispatch => {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(Login);
+)(withStyles(styles)(Login));

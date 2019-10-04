@@ -4,8 +4,8 @@ import { connect } from "react-redux";
 
 import * as actions from "./store/actions/auth";
 
-import Header from "./container/Navbar";
-import Footer from "./container/footer";
+import Navbar from "./container/Navbar";
+// import Footer from "./container/footer";
 
 import Login from "./components/Login";
 import SignUp from "./components/Signup";
@@ -19,11 +19,11 @@ class App extends React.Component {
     return (
       <div className="app">
         <BrowserRouter>
-          <Header />
-          <Route path="/" component={Home} />
-          <Route path="/login" component={Login} />
-          <Route path="/register" component={SignUp} />
-          <Footer />
+          <Navbar />
+          <Route exact path="/" component={Home} />
+          <Route exact path="/login" component={Login} />
+          <Route exact path="/register" component={SignUp} />
+          {/* <Footer /> */}
         </BrowserRouter>
       </div>
     );

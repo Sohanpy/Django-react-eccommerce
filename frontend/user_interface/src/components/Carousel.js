@@ -1,48 +1,28 @@
-import React from "react";
-import { Carousel } from "react-bootstrap";
+import React, { Component } from "react";
+import "react-responsive-carousel/lib/styles/carousel.min.css";
+import { Carousel } from "react-responsive-carousel";
 
-const Slide = () => {
-  return (
-    <Carousel>
-      <Carousel.Item>
-        <img
-          className="d-block w-100"
-          src="https://mdbootstrap.com/img/Photos/Slides/img%20(31).jpg"
-          alt="First slide"
-        />
-        <Carousel.Caption>
-          <h3>First slide label</h3>
-          <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
-        </Carousel.Caption>
-      </Carousel.Item>
-      <Carousel.Item>
-        <img
-          className="d-block w-100"
-          src="https://mdbootstrap.com/img/Photos/Slides/img%20(35).jpg"
-          alt="Third slide"
-        />
+class DemoCarousel extends Component {
+  render() {
+    return (
+      <>
+        <Carousel>
+          <div>
+            <img src="https://static.parade.com/wp-content/uploads/2013/07/Six-Flags-Carousel-richardcox8592.jpg" />
+            <p className="legend">Legend 1</p>
+          </div>
+          <div>
+            <img src="https://parade.com/wp-content/uploads/2013/07/AR2H30.jpg" />
+            <p className="legend">Legend 2</p>
+          </div>
+          <div>
+            <img src="https://www.fangirlquest.com/wp-content/uploads/2016/12/5077-house-on-the-rock-wisconsin-huge-carousel.jpg" />
+            <p className="legend">Legend 3</p>
+          </div>
+        </Carousel>
+      </>
+    );
+  }
+}
 
-        <Carousel.Caption>
-          <h3>Second slide label</h3>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-        </Carousel.Caption>
-      </Carousel.Item>
-      <Carousel.Item>
-        <img
-          className="d-block w-100"
-          src="https://mdbootstrap.com/img/Photos/Slides/img%20(33).jpg"
-          alt="Third slide"
-        />
-
-        <Carousel.Caption>
-          <h3>Third slide label</h3>
-          <p>
-            Praesent commodo cursus magna, vel scelerisque nisl consectetur.
-          </p>
-        </Carousel.Caption>
-      </Carousel.Item>
-    </Carousel>
-  );
-};
-
-export default Slide;
+export default DemoCarousel;
